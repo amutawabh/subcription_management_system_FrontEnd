@@ -57,4 +57,8 @@ Frontend: React (for creating user-friendly dashboards)
 Backend: Node.js, Express (for API development)
 Database: MongoDB (to store subscription and user data)
 
+# ERD
 
+![alt text](image.png)
+![alt text](image-1.png)
+![alt text](image-2.png)
