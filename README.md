@@ -22,34 +22,39 @@ o	As a user, I want to see highlighted notifications for subscriptions that are 
 o	As a user, I want to filter subscriptions based on status (e.g., active, expired, nearing expiration).
 
 # Pseudo Code
-Authentication
-•	function signup(username, password, role)
-o	Allow admins to add new employees.
-•	function signin(username, password)
-o	Authenticate employees or admins and provide access to relevant features.
-Subscription Management
-•	function addSubscription(clientDetails, startDate, endDate)
-o	Add a new client subscription with required details.
-•	function editSubscription(subscriptionID, updatedDetails)
-o	Allow employees to update client subscription details (e.g., extend end date).
-•	function viewSubscriptions()
-o	Display all client subscriptions with filters for status (active, nearing expiration, expired).
-Renewal Management
-•	function renewSubscription(subscriptionID, renewalPeriod)
-o	Update the expiration date based on the renewal period (monthly/yearly).
-Dashboard Features
-•	function getExpiringSubscriptions()
-o	Highlight subscriptions that are expiring within a defined period (e.g., 30 days).
-•	function filterSubscriptions(status)
-o	Allow filtering subscriptions by status (active, expired, nearing expiration).
-User Management
-•	function addUser(username, password, role)
-o	Admin can create new user accounts for employees.
-•	function deleteUser(userID)
-o	Admin can remove access for specific users.
+
+## Authentication
+function signup(username, password, role)
+Allow admins to add new employees.
+function signin(username, password)
+Authenticate employees or admins and provide access to relevant features.
+## Subscription Management
+function addSubscription(clientDetails, startDate, endDate)
+Add a new client subscription with required details.
+function editSubscription(subscriptionID, updatedDetails)
+Allow employees to update client subscription details (e.g., extend end date).
+function viewSubscriptions()
+Display all client subscriptions with filters for status (active, nearing expiration, expired).
+
+# Renewal Management
+function renewSubscription(subscriptionID, renewalPeriod)
+Update the expiration date based on the renewal period (monthly/yearly).
+
+## Dashboard Features
+function getExpiringSubscriptions()
+Highlight subscriptions that are expiring within a defined period (e.g., 30 days).
+function filterSubscriptions(status)
+Allow filtering subscriptions by status (active, expired, nearing expiration).
+
+ ## User Management
+function addUser(username, password, role)
+Admin can create new user accounts for employees.
+function deleteUser(userID)
+Admin can remove access for specific users.
 
 # Technologies Used
-•	Frontend: React (for creating user-friendly dashboards)
-•	Backend: Node.js, Express (for API development)
-•	Database: MongoDB (to store subscription and user data)
+Frontend: React (for creating user-friendly dashboards)
+Backend: Node.js, Express (for API development)
+Database: MongoDB (to store subscription and user data)
+
 
