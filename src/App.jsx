@@ -25,6 +25,7 @@ function App() {
           </ul>
         </nav>
         <Routes>
+        <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/subscriptions" element={<Subscriptions />} />
