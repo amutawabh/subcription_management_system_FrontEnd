@@ -59,6 +59,6 @@ Database: MongoDB (to store subscription and user data)
 
 # ERD
 
-![alt text](image.png)
-![alt text](image-1.png)
-![alt text](image-2.png)
+![alt text](/Plan/image.png)
+![alt text](/Plan/image-1.png)
+![alt text](/Plan/image-2.png)

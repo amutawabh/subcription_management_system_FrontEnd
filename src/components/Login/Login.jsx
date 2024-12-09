@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import axios from "../../axios";
+// src/components/Login/Login.jsx
 
+import React, { useState } from "react";
+import axios from "../../../axios";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -14,13 +15,13 @@ const Login = () => {
         password,
       });
       if (response.data.token) {
-        localStorage.setItem("token", response.data.token); // حفظ التوكن
+        localStorage.setItem("token", response.data.token); 
         alert("Login successful");
       } else {
         alert("Failed to retrieve token");
       }
     } catch (error) {
-      console.error(error);
+      console.error("Error details:", error.response);
       alert(error.response?.data?.message || "An error occurred");
     }
   };
