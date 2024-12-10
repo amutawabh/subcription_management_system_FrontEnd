@@ -1,51 +1,81 @@
-// src/components/Login/Login.jsx
-
-import React, { useState } from "react";
-import axios from "../../../axios";
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import * as authService from '../../services/authService';
 import './Login.css';
 
+const SigninForm = (props) => {
+  const navigate = useNavigate();
+  const [message, setMessage] = useState(['']);
+  const [formData, setFormData] = useState({
+    username: '',
+    password: '',
+  });
 
-const Login = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const updateMessage = (msg) => {
+    setMessage(msg);
+  };
 
-  const handleLogin = async (e) => {
+  const handleChange = (e) => {
+    updateMessage('');
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/users/login", {
-        username,
-        password,
-      });
-      if (response.data.token) {
-        localStorage.setItem("token", response.data.token); 
-        alert("Login successful");
-      } else {
-        alert("Failed to retrieve token");
-      }
-    } catch (error) {
-      console.error("Error details:", error.response);
-      alert(error.response?.data?.message || "An error occurred");
+      const user = await authService.signin(formData);
+
+      props.setUser(user);
+      navigate('/');
+    } catch (err) {
+      updateMessage(err.message);
     }
   };
 
+  const { username, password } = formData;
+
+  const isFormInvalid = () => {
+    return !(username && password);
+  };
+
   return (
-    <form onSubmit={handleLogin}>
-      <h1>Login</h1>
-      <input
-        type="text"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button type="submit">Login</button>
-    </form>
+    <main className='sign'>
+      <h1>Sign In</h1>
+      <p>{message}</p>
+      <form autoComplete="off" onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="email">Username:</label>
+          <input
+            type="text"
+            autoComplete="off"
+            id="username"
+            value={formData.username}
+            name="username"
+            onChange={handleChange}
+            placeholder='Write your username here...'
+          />
+        </div>
+        <div>
+          <label htmlFor="password">Password:</label>
+          <input
+            type="password"
+            autoComplete="off"
+            id="password"
+            value={formData.password}
+            name="password"
+            onChange={handleChange}
+            placeholder='Write your password here...'
+          />
+        </div>
+        <div>
+          <button disabled={isFormInvalid()}>Log In</button>
+          <Link to="/">
+            <button className='cancel-button'>Cancel</button>
+          </Link>
+        </div>
+      </form>
+    </main>
   );
 };
 
-export default Login;
+export default SigninForm;
