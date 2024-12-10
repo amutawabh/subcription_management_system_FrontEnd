@@ -1,3 +1,5 @@
+// src/services/SubscriptionsService.js
+
 const BASE_URL = `${import.meta.env.VITE_BACKEND_URL}/Subscriptions`;
 
 const index = async () => {
