@@ -52,6 +52,7 @@
 .login-button:hover {
   background-color: #1d4ed8;
 }
+
 .error-text {
   color: red;
   font-size: 0.875rem;
