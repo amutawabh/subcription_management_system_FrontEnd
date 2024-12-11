@@ -1,46 +1,45 @@
-// src/components/Subscriptions/Subscriptions.jsx
+// src/services/subscriptionService.js
 
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "../../../axios";
+import api from './api';
 
-const Subscriptions = () => {
-  const [subscriptions, setSubscriptions] = useState([]);
-  const navigate = useNavigate(); 
-
-  useEffect(() => {
-    const fetchSubscriptions = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        if (!token) {
-          console.error("No token found");
-          navigate("/login"); 
-          return;
-        }
-        const response = await axios.get("/subscriptions", {
-          headers: { Authorization: `Bearer ${token}` }, 
-        });
-        setSubscriptions(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchSubscriptions();
-  }, [navigate]); 
-
-  return (
-    <div>
-      <h1>Subscriptions</h1>
-      <ul>
-        {subscriptions.map((sub) => (
-          <li key={sub._id}>
-            {sub.clientName} - {new Date(sub.endDate).toLocaleDateString()}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+export const getSubscriptions = async () => {
+    const token = localStorage.getItem('token'); // استرجاع التوكن من التخزين المحلي
+    const response = await api.get('/subscriptions', {
+        headers: {
+            Authorization: `Bearer ${token}`, // إضافة التوكن إلى الهيدر
+        },
+    });
+    return response.data; // إرجاع البيانات المستلمة
 };
 
-export default Subscriptions;
+export const addSubscription = async (subscriptionData) => {
+    const token = localStorage.getItem('token'); // استرجاع التوكن من التخزين المحلي
+    const response = await api.post('/subscriptions', subscriptionData, {
+        headers: {
+            Authorization: `Bearer ${token}`, // إضافة التوكن إلى الهيدر
+        },
+    });
+    return response.data; // إرجاع البيانات المستلمة
+};
+
+// دالة تحديث الاشتراك
+export const updateSubscription = async (id, subscriptionData) => {
+    const token = localStorage.getItem('token'); // استرجاع التوكن من التخزين المحلي
+    const response = await api.put(`/subscriptions/${id}`, subscriptionData, {
+        headers: {
+            Authorization: `Bearer ${token}`, // إضافة التوكن إلى الهيدر
+        },
+    });
+    return response.data; // إرجاع البيانات المستلمة
+};
+
+// دالة حذف الاشتراك
+export const deleteSubscription = async (id) => {
+    const token = localStorage.getItem('token'); // استرجاع التوكن من التخزين المحلي
+    const response = await api.delete(`/subscriptions/${id}`, {
+        headers: {
+            Authorization: `Bearer ${token}`, // إضافة التوكن إلى الهيدر
+        },
+    });
+    return response.data; // إرجاع البيانات المستلمة
+};
