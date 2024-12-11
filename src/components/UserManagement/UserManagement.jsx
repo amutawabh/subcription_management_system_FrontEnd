@@ -1,9 +1,8 @@
 // src/components/UserManagement/UserManagement.jsx
 
-// src/components/UserManagement/UserManagement.jsx
-
 import React, { useEffect, useState } from 'react';
 import { getUsers, updateUser, deleteUser } from '../../services/userService';
+import './UserManagement.css';
 
 const UserManagement = () => {
     const [users, setUsers] = useState([]);

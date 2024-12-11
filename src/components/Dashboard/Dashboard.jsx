@@ -1,5 +1,3 @@
-//  src/components/Dashboard/Dashboard.jsx
-
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getSubscriptions, updateSubscription, deleteSubscription } from '../../services/subscriptionService';
@@ -52,6 +50,10 @@ const Dashboard = () => {
 
     const handleUserManagement = () => {
         navigate('/user-management');
+    };
+
+    const handleLogs = () => {
+        navigate('/logs'); 
     };
 
     const handleEditSubscription = (subscription) => {
@@ -113,6 +115,11 @@ const Dashboard = () => {
                     <button className="add-subscription-button" onClick={handleAddSubscription}>
                         Add Subscription
                     </button>
+                    {isAdmin && (
+                        <button className="logs-button" onClick={handleLogs}>
+                            Logs
+                        </button>
+                    )}
                     <button className="logout-button" onClick={handleLogout}>
                         Logout
                     </button>
@@ -228,3 +235,4 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+``
