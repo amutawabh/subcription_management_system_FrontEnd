@@ -1,49 +1,58 @@
-// src/components/Login/Login.jsx
+// src/components/Register/Register.jsx
 
 import React, { useState } from "react";
-import axios from "../../../axios";
+import { addUser } from "../../services/userService"; 
 
 const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("employee");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/users/register", {
-        username,
-        password,
-        role,
-      });
-      alert(response.data.message);
+      await addUser({ username, password, role }); // استخدام addUser
+      setSuccess("User registered successfully!");
+      setError("");
+      setUsername("");
+      setPassword("");
+      setRole("employee");
     } catch (error) {
       console.error(error);
-      alert(error.response.data.message || "An error occurred");
+      setError(error.response?.data?.message || "An error occurred");
+      setSuccess("");
     }
   };
 
   return (
-    <form onSubmit={handleRegister}>
-      <h1>Register</h1>
-      <input
-        type="text"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <select value={role} onChange={(e) => setRole(e.target.value)}>
-        <option value="admin">Admin</option>
-        <option value="employee">Employee</option>
-      </select>
-      <button type="submit">Register</button>
-    </form>
+    <div className="register-container">
+      <form onSubmit={handleRegister}>
+        <h1>Register</h1>
+        {error && <p className="error-text">{error}</p>}
+        {success && <p className="success-text">{success}</p>}
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <select value={role} onChange={(e) => setRole(e.target.value)}>
+          <option value="admin">Admin</option>
+          <option value="employee">Employee</option>
+        </select>
+        <button type="submit">Register</button>
+      </form>
+    </div>
   );
 };
 
