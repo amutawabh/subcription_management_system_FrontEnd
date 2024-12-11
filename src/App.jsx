@@ -5,6 +5,9 @@ import Dashboard from './components/Dashboard/Dashboard';
 import AddSubscription from './components/AddSubscription/AddSubscription';
 import UserManagement from './components/UserManagement/UserManagement';
 import Register from './components/Register/Register';
+import Logs from './components/Logs/Logs';
+
+
 
 
 const App = () => {
@@ -17,6 +20,8 @@ const App = () => {
       <Route path="/user-management" element={<UserManagement />} />
       <Route path="/edit-subscription/:id" element={<AddSubscription />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/logs" element={<Logs />} />
+      
     
 
 
