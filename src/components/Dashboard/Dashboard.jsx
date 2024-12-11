@@ -1,6 +1,8 @@
+//  src/components/Dashboard/Dashboard.jsx
+
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getSubscriptions } from '../../services/subscriptionService';
+import { getSubscriptions, updateSubscription, deleteSubscription } from '../../services/subscriptionService';
 import './Dashboard.css';
 
 const Dashboard = () => {
@@ -8,9 +10,10 @@ const Dashboard = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [isAdmin, setIsAdmin] = useState(false);
+    const [editingSubscription, setEditingSubscription] = useState(null);
+    const [editForm, setEditForm] = useState({});
     const navigate = useNavigate();
 
-    // التحقق من التوكن عند تحميل الصفحة
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (!token) {
@@ -18,12 +21,10 @@ const Dashboard = () => {
             return;
         }
 
-        // فك تشفير التوكن لمعرفة الدور
         const user = JSON.parse(atob(token.split('.')[1]));
         setIsAdmin(user.role === 'admin');
     }, [navigate]);
 
-    // جلب الاشتراكات من الخادم
     useEffect(() => {
         const fetchSubscriptions = async () => {
             try {
@@ -40,25 +41,63 @@ const Dashboard = () => {
         fetchSubscriptions();
     }, []);
 
-    // تسجيل الخروج
     const handleLogout = () => {
         localStorage.removeItem('token');
         navigate('/');
     };
 
-    // الانتقال إلى صفحة إضافة اشتراك
     const handleAddSubscription = () => {
         navigate('/add-subscription');
     };
 
-    // الانتقال إلى صفحة إدارة المستخدمين
     const handleUserManagement = () => {
         navigate('/user-management');
     };
 
-    // تعديل اشتراك
-    const handleEditSubscription = (id) => {
-        navigate(`/edit-subscription/${id}`);
+    const handleEditSubscription = (subscription) => {
+        setEditingSubscription(subscription._id);
+        setEditForm({
+            clientName: subscription.clientName,
+            contactInfo: subscription.contactInfo,
+            startDate: subscription.startDate,
+            endDate: subscription.endDate,
+            status: subscription.status,
+        });
+    };
+
+    const handleSaveEdit = async () => {
+        try {
+            await updateSubscription(editingSubscription, editForm);
+            setSubscriptions((prev) =>
+                prev.map((sub) =>
+                    sub._id === editingSubscription ? { ...sub, ...editForm } : sub
+                )
+            );
+            setEditingSubscription(null);
+            setError('');
+        } catch (err) {
+            setError('Failed to update subscription. Please try again.');
+        }
+    };
+
+    const handleCancelEdit = () => {
+        setEditingSubscription(null);
+        setEditForm({});
+    };
+
+    const handleFormChange = (e) => {
+        const { name, value } = e.target;
+        setEditForm((prev) => ({ ...prev, [name]: value }));
+    };
+
+    const handleDeleteSubscription = async (id) => {
+        try {
+            await deleteSubscription(id);
+            setSubscriptions((prev) => prev.filter((sub) => sub._id !== id));
+            setError('');
+        } catch (err) {
+            setError('Failed to delete subscription. Please try again.');
+        }
     };
 
     return (
@@ -97,25 +136,89 @@ const Dashboard = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {subscriptions.map((sub) => (
-                                <tr key={sub._id}>
-                                    <td>{sub.clientName}</td>
-                                    <td>{sub.contactInfo}</td>
-                                    <td>{new Date(sub.startDate).toLocaleDateString()}</td>
-                                    <td>{new Date(sub.endDate).toLocaleDateString()}</td>
-                                    <td>{sub.status}</td>
-                                    {isAdmin && (
+                            {subscriptions.map((sub) =>
+                                editingSubscription === sub._id ? (
+                                    <tr key={sub._id}>
                                         <td>
-                                            <button
-                                                className="edit-button"
-                                                onClick={() => handleEditSubscription(sub._id)}
+                                            <input
+                                                type="text"
+                                                name="clientName"
+                                                value={editForm.clientName}
+                                                onChange={handleFormChange}
+                                            />
+                                        </td>
+                                        <td>
+                                            <input
+                                                type="text"
+                                                name="contactInfo"
+                                                value={editForm.contactInfo}
+                                                onChange={handleFormChange}
+                                            />
+                                        </td>
+                                        <td>
+                                            <input
+                                                type="date"
+                                                name="startDate"
+                                                value={editForm.startDate}
+                                                onChange={handleFormChange}
+                                            />
+                                        </td>
+                                        <td>
+                                            <input
+                                                type="date"
+                                                name="endDate"
+                                                value={editForm.endDate}
+                                                onChange={handleFormChange}
+                                            />
+                                        </td>
+                                        <td>
+                                            <select
+                                                name="status"
+                                                value={editForm.status}
+                                                onChange={handleFormChange}
                                             >
-                                                Edit
+                                                <option value="active">Active</option>
+                                                <option value="inactive">Inactive</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <button className="save-button" onClick={handleSaveEdit}>
+                                                Save
+                                            </button>
+                                            <button
+                                                className="cancel-button"
+                                                onClick={handleCancelEdit}
+                                            >
+                                                Cancel
                                             </button>
                                         </td>
-                                    )}
-                                </tr>
-                            ))}
+                                    </tr>
+                                ) : (
+                                    <tr key={sub._id}>
+                                        <td>{sub.clientName}</td>
+                                        <td>{sub.contactInfo}</td>
+                                        <td>{new Date(sub.startDate).toLocaleDateString()}</td>
+                                        <td>{new Date(sub.endDate).toLocaleDateString()}</td>
+                                        <td>{sub.status}</td>
+                                        {isAdmin && (
+                                            <td>
+                                                <button
+                                                    className="edit-button"
+                                                    onClick={() => handleEditSubscription(sub)}
+                                                >
+                                                    Edit
+                                                </button>
+                                                <button
+                                                    className="delete-button"
+                                                    onClick={() => handleDeleteSubscription(sub._id)}
+                                                >
+                                                    Delete
+                                                </button>
+                                            </td>
+                                        )}
+                                    </tr>
+                                )
+                            )}
                         </tbody>
                     </table>
                 </div>
