@@ -7,22 +7,28 @@ const Dashboard = () => {
     const [subscriptions, setSubscriptions] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const [isAdmin, setIsAdmin] = useState(false);
     const navigate = useNavigate();
 
-    
+    // التحقق من التوكن عند تحميل الصفحة
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (!token) {
-            navigate('/'); 
+            navigate('/');
+            return;
         }
+
+        // فك تشفير التوكن لمعرفة الدور
+        const user = JSON.parse(atob(token.split('.')[1]));
+        setIsAdmin(user.role === 'admin');
     }, [navigate]);
 
-   
+    // جلب الاشتراكات من الخادم
     useEffect(() => {
         const fetchSubscriptions = async () => {
             try {
                 const data = await getSubscriptions();
-                setSubscriptions(data); 
+                setSubscriptions(data);
                 setError('');
             } catch (err) {
                 setError('Failed to load subscriptions. Please try again.');
@@ -34,15 +40,25 @@ const Dashboard = () => {
         fetchSubscriptions();
     }, []);
 
-
+    // تسجيل الخروج
     const handleLogout = () => {
         localStorage.removeItem('token');
         navigate('/');
     };
 
- 
+    // الانتقال إلى صفحة إضافة اشتراك
     const handleAddSubscription = () => {
         navigate('/add-subscription');
+    };
+
+    // الانتقال إلى صفحة إدارة المستخدمين
+    const handleUserManagement = () => {
+        navigate('/user-management');
+    };
+
+    // تعديل اشتراك
+    const handleEditSubscription = (id) => {
+        navigate(`/edit-subscription/${id}`);
     };
 
     return (
@@ -50,6 +66,11 @@ const Dashboard = () => {
             <div className="dashboard-header">
                 <h1 className="dashboard-title">Dashboard</h1>
                 <div className="dashboard-actions">
+                    {isAdmin && (
+                        <button className="user-management-button" onClick={handleUserManagement}>
+                            User Management
+                        </button>
+                    )}
                     <button className="add-subscription-button" onClick={handleAddSubscription}>
                         Add Subscription
                     </button>
@@ -72,6 +93,7 @@ const Dashboard = () => {
                                 <th>Start Date</th>
                                 <th>End Date</th>
                                 <th>Status</th>
+                                {isAdmin && <th>Actions</th>}
                             </tr>
                         </thead>
                         <tbody>
@@ -82,6 +104,16 @@ const Dashboard = () => {
                                     <td>{new Date(sub.startDate).toLocaleDateString()}</td>
                                     <td>{new Date(sub.endDate).toLocaleDateString()}</td>
                                     <td>{sub.status}</td>
+                                    {isAdmin && (
+                                        <td>
+                                            <button
+                                                className="edit-button"
+                                                onClick={() => handleEditSubscription(sub._id)}
+                                            >
+                                                Edit
+                                            </button>
+                                        </td>
+                                    )}
                                 </tr>
                             ))}
                         </tbody>
