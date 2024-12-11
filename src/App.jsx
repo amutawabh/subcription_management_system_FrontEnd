@@ -4,6 +4,7 @@ import Login from './components/Login/Login';
 import Dashboard from './components/Dashboard/Dashboard';
 import AddSubscription from './components/AddSubscription/AddSubscription';
 import UserManagement from './components/UserManagement/UserManagement';
+import Register from './components/Register/Register';
 
 
 const App = () => {
@@ -15,6 +16,9 @@ const App = () => {
       <Route path="/edit-subscription/:id" element={<AddSubscription />} />
       <Route path="/user-management" element={<UserManagement />} />
       <Route path="/edit-subscription/:id" element={<AddSubscription />} />
+      <Route path="/register" element={<Register />} />
+    
+
 
   
     </Routes>
