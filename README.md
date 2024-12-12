@@ -8,6 +8,12 @@
 
 The Subscription Management System is an internal tool designed for companies to effectively monitor and manage client subscriptions. The system allows employees to track subscription details, update them as necessary, and ensure timely communication with clients. It includes features for adding, editing, and renewing subscriptions, while also providing clear dashboards to visualize subscription statuses. Administrators have full control over system users (employees), ensuring a streamlined process for subscription tracking and updates.
 
+# Project Objectives
+
+Centralized Subscription Tracking: Input and manage all client subscriptions with details such as start and end dates.
+
+ser Management: Grant administrators the ability to add, manage, and remove employees with access to the system.
+
 # Screenshots
 
 ## Login Page
@@ -36,12 +42,6 @@ The Subscription Management System is an internal tool designed for companies to
 3. As an admin, I want to view all client subscriptions in a dashboard to monitor their statuses.
 4. As an employee, I want to add new client subscriptions with details such as name, contact info, start date, and expiration date.
 5. As an employee, I want to view a dashboard that displays all
-
-# Project Objectives
-
-Centralized Subscription Tracking: Input and manage all client subscriptions with details such as start and end dates.
-
-ser Management: Grant administrators the ability to add, manage, and remove employees with access to the system.
 
 # Pseudo Code
 
