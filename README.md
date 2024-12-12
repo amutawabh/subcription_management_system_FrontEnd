@@ -68,3 +68,8 @@ Database: MongoDB (to store subscription and user data)
 ![alt text](/Plan/image.png)
 ![alt text](/Plan/image-1.png)
 ![alt text](/Plan/image-2.png)
+
+# Next plan
+1.	Add service name
+2.	Add categories to subscription
+3.	Send notifications
