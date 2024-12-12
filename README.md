@@ -19,15 +19,15 @@ The Subscription Management System is an internal tool designed for companies to
 
 ![Dashboard1 Admin](/public/assets/Dashboard1.png)
 
-![Edit](/public/assets/edit.png))
+![Edit](/public/assets/edit.png)
 
 ## Add Subscription
 
-![Subscription add](/public/assets/Subscription.png))
+![Subscription add](/public/assets/Subscription.png)
 
 ## User Management
 
-![Users](/public/assets/users.png))
+![Users](/public/assets/users.png)
 
 # User Stories
 
@@ -37,55 +37,49 @@ The Subscription Management System is an internal tool designed for companies to
 4. As an employee, I want to add new client subscriptions with details such as name, contact info, start date, and expiration date.
 5. As an employee, I want to view a dashboard that displays all
 
-
 # Project Objectives
 
-1.	Centralized Subscription Tracking: Input and manage all client subscriptions with details such as start and end dates.
-2.	Expiration Alerts: Display subscriptions nearing their expiration date in a dedicated dashboard to ensure timely renewal actions.
-3.	Renewal Options: Allow users to renew client subscriptions either monthly or yearly and set the new expiration date accordingly.
-4.	User Management: Grant administrators the ability to add, manage, and remove employees with access to the system.
+Centralized Subscription Tracking: Input and manage all client subscriptions with details such as start and end dates.
+
+ser Management: Grant administrators the ability to add, manage, and remove employees with access to the system.
 
 # Pseudo Code
 
 ## Authentication
+
 function signup(username, password, role)
 Allow admins to add new employees.
+
 function signin(username, password)
 Authenticate employees or admins and provide access to relevant features.
+
 ## Subscription Management
+
 function addSubscription(clientDetails, startDate, endDate)
 Add a new client subscription with required details.
 function editSubscription(subscriptionID, updatedDetails)
 Allow employees to update client subscription details (e.g., extend end date).
 function viewSubscriptions()
-Display all client subscriptions with filters for status (active, nearing expiration, expired).
+Display all client subscriptions with filters for status (active and inactive).
 
-# Renewal Management
-function renewSubscription(subscriptionID, renewalPeriod)
-Update the expiration date based on the renewal period (monthly/yearly).
 
-## Dashboard Features
-function getExpiringSubscriptions()
-Highlight subscriptions that are expiring within a defined period (e.g., 30 days).
-function filterSubscriptions(status)
-Allow filtering subscriptions by status (active, expired, nearing expiration).
+## User Management
 
- ## User Management
 function addUser(username, password, role)
 Admin can create new user accounts for employees.
 function deleteUser(userID)
 Admin can remove access for specific users.
-
-# Technologies Used
-Frontend: React (for creating user-friendly dashboards)
-Backend: Node.js, Express (for API development)
-Database: MongoDB (to store subscription and user data)
 
 # ERD
 
 ![alt text](/Plan/image.png)
 ![alt text](/Plan/image-1.png)
 ![alt text](/Plan/image-2.png)
+
+# Technologies Used
+Frontend: React (for creating user-friendly dashboards)
+Backend: Node.js, Express (for API development)
+Database: MongoDB (to store subscription and user data)
 
 # Next plan
 1.	Add service name
