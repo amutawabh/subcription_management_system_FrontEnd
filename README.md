@@ -12,7 +12,7 @@ The Subscription Management System is an internal tool designed for companies to
 
 ## Login Page
 
-![Login Page](/src/assets/login.png)
+![Login Page](/public/images/login.png)
 
 
 # Project Objectives
