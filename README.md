@@ -16,16 +16,26 @@ The Subscription Management System is an internal tool designed for companies to
 
 ## Dashboard Admin User
 
-![alt text](image.png)
 
 ![Dashboard1 Admin](/public/assets/Dashboard1.png)
+
+![Edit](/public/assets/edit.png))
 
 ## Add Subscription
 
 ![Subscription add](/public/assets/Subscription.png))
 
-![alt text](image.png)
+## User Management
 
+![Users](/public/assets/users.png))
+
+# User Stories
+
+1. As an admin, I want to add, edit, and delete employee accounts to control system access.
+2. As an admin, I want to manage client subscriptions, including adding, editing, and deleting them.
+3. As an admin, I want to view all client subscriptions in a dashboard to monitor their statuses.
+4. As an employee, I want to add new client subscriptions with details such as name, contact info, start date, and expiration date.
+5. As an employee, I want to view a dashboard that displays all
 
 
 # Project Objectives
@@ -34,18 +44,6 @@ The Subscription Management System is an internal tool designed for companies to
 2.	Expiration Alerts: Display subscriptions nearing their expiration date in a dedicated dashboard to ensure timely renewal actions.
 3.	Renewal Options: Allow users to renew client subscriptions either monthly or yearly and set the new expiration date accordingly.
 4.	User Management: Grant administrators the ability to add, manage, and remove employees with access to the system.
-
-# User Stories
-1.	Administrator:
-o	As an admin, I want to add, edit, and delete employee accounts to control system access.
-o	As an admin, I want to view all subscriptions and their statuses for better oversight.
-2.	Employee:
-o	As an employee, I want to add new client subscriptions with details such as name, contact info, start date, and expiration date.
-o	As an employee, I want to view a dashboard that displays all subscriptions with clear indicators of those nearing expiration.
-o	As an employee, I want to renew client subscriptions (monthly or yearly) and set the new expiration date.
-3.	System Alerts:
-o	As a user, I want to see highlighted notifications for subscriptions that are expiring soon (e.g., within 30 days).
-o	As a user, I want to filter subscriptions based on status (e.g., active, expired, nearing expiration).
 
 # Pseudo Code
 
